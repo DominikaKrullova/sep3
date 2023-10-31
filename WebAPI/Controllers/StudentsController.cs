@@ -30,5 +30,21 @@ public class StudentsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Student>>> GetAsyncStudent([FromQuery] string? username)
+    {
+        try
+        {
+            SearchUserParametersDto parameters = new(username);
+            IEnumerable<Student> students = await studentLogic.GetAsyncStudent(parameters);
+            return Ok(students);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }
 

@@ -8,6 +8,7 @@ namespace Application.Logic;
 public class TeacherLogic : ITeacherLogic
 {
     private readonly ITeacherDao userDao;
+    private ITeacherLogic _teacherLogicImplementation;
 
     public TeacherLogic(ITeacherDao userDao)
     {
@@ -29,7 +30,14 @@ public class TeacherLogic : ITeacherLogic
     
         return created;
     }
+
+    public Task<IEnumerable<Teacher>> GetAsyncTeacher(SearchUserParametersDto searchParameters)
+    {
+        return userDao.GetAsyncTeacher(searchParameters);
+
+    }
     
+
     private static void ValidateData(UserCreationDto userToCreate)
     {
         string id = userToCreate.Id;

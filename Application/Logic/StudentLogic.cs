@@ -29,7 +29,13 @@ public class StudentLogic  : IStudentLogic
     
         return (Student)created;
     }
+
+    public Task<IEnumerable<Student>> GetAsyncStudent(SearchUserParametersDto searchParameters)
+    {
+        return userDao.GetAsyncStudent(searchParameters);
+    }
     
+
     private static void ValidateData(UserCreationDto userToCreate)
     {
         string id = userToCreate.Id;

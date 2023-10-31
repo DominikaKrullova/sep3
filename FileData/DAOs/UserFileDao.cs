@@ -1,5 +1,6 @@
 using Application.DaoInterfaces;
 using Domain;
+using Domain.DTOs;
 
 namespace FileData.DAOs;
 
@@ -55,11 +56,33 @@ public class UserFileDao : IStudentDao, ITeacherDao
         return Task.FromResult(student);
     }
 
+    public Task<IEnumerable<Student>> GetAsyncStudent(SearchUserParametersDto searchParameters)
+    {
+        IEnumerable<Student> students = context.Students.AsEnumerable();
+        if (searchParameters.IdContains != null)
+        {
+            students = context.Students.Where(u => u.Id.Contains(searchParameters.IdContains, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return Task.FromResult(students);
+    }
+
     public Task<Teacher?> GetByIdAsyncTeacher(string id)
     {
         Teacher? existing = context.Teachers.FirstOrDefault(u =>
             u.Id.Equals(id, StringComparison.OrdinalIgnoreCase)
         );
         return Task.FromResult(existing);
+    }
+
+    public Task<IEnumerable<Teacher>> GetAsyncTeacher(SearchUserParametersDto searchParameters)
+    {
+        IEnumerable<Teacher> teachers = context.Teachers.AsEnumerable();
+        if (searchParameters.IdContains != null)
+        {
+            teachers = context.Teachers.Where(u => u.Id.Contains(searchParameters.IdContains, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return Task.FromResult(teachers);
     }
 }

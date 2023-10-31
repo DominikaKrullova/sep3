@@ -64,7 +64,6 @@ public class FileContext
                 Supervisors = new List<Supervisor>(),
                 Exams = new List<Exam>(),
                 Classes = new List<Class>(),
-                Users = new List<User>()
 
             };
             return;

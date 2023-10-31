@@ -30,4 +30,21 @@ public class TeachersController : ControllerBase
         }
     }
     
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Teacher>>> GetAsyncTeacher([FromQuery] string? id)
+    {
+        try
+        {
+            SearchUserParametersDto parameters = new(id);
+            IEnumerable<Teacher> teachers = await teacherLogic.GetAsyncTeacher(parameters);
+            return Ok(teachers);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
 }
