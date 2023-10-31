@@ -2,12 +2,15 @@ namespace Domain;
 
 public class User
 {
-    public  int Id { get; set; }
+    public  string Id { get; set; }
+    public int UserId { get; set; }
     public string Password { get; set; }
+    
 
-    public User(string password, int id)
+    public User(string id, string password)
     {
         Id = id;
         Password = password;
     }
+    
 }
